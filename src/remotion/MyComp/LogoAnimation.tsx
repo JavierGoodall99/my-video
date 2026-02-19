@@ -78,11 +78,12 @@ function getGlitchStyle(
     offsetX: number,
     offsetY: number,
     clipPath: string,
-    fontFamily: string
+    fontFamily: string,
+    fontSize: number = 140
 ): React.CSSProperties {
     return {
         fontFamily,
-        fontSize: 140,
+        fontSize,
         fontWeight: 900,
         color,
         position: "absolute",
@@ -103,6 +104,8 @@ export const LogoAnimation: React.FC = () => {
     const frame = useCurrentFrame();
     const { fps, width, height } = useVideoConfig();
 
+    const isVertical = height > width;
+
     // Particles — stable reference
     const particles = useMemo(
         () => Array.from({ length: 40 }, (_, i) => i),
@@ -116,7 +119,7 @@ export const LogoAnimation: React.FC = () => {
         config: { mass: 1, damping: 18, stiffness: 60 },
         durationInFrames: 40,
     });
-    const barHeight = interpolate(barProgress, [0, 1], [0, height * 0.1]);
+    const barHeight = interpolate(barProgress, [0, 1], [0, height * (isVertical ? 0.05 : 0.1)]);
 
     // ── 2. Tagline ────────────────────────────────────────────────────────────
     const taglineProgress = spring({
@@ -137,7 +140,7 @@ export const LogoAnimation: React.FC = () => {
         config: { mass: 1, damping: 22, stiffness: 60 },
         durationInFrames: 55,
     });
-    const lineWidth = interpolate(lineProgress, [0, 1], [0, width * 0.6]);
+    const lineWidth = interpolate(lineProgress, [0, 1], [0, width * (isVertical ? 0.8 : 0.6)]);
 
     // ── 4. Logo slam ──────────────────────────────────────────────────────────
     const logoSlam = spring({
@@ -214,6 +217,14 @@ export const LogoAnimation: React.FC = () => {
         [0.55, 0.7],
         { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
     );
+
+    // responsive configs
+    const mainFontSize = isVertical ? 120 : 140;
+    const comingSoonSize = isVertical ? 60 : 72;
+    const taglineSize = isVertical ? 24 : 13;
+    const subtitleSize = isVertical ? 28 : 15;
+    const dateSize = isVertical ? 24 : 12;
+
 
     return (
         <AbsoluteFill style={{ backgroundColor: BRAND_DARK, overflow: "hidden" }}>
@@ -312,7 +323,7 @@ export const LogoAnimation: React.FC = () => {
                 <div
                     style={{
                         fontFamily: serifFont,
-                        fontSize: 13,
+                        fontSize: taglineSize,
                         fontWeight: 400,
                         letterSpacing: "0.55em",
                         color: "rgba(255,255,255,0.45)",
@@ -320,6 +331,8 @@ export const LogoAnimation: React.FC = () => {
                         marginBottom: 22,
                         opacity: taglineOpacity,
                         transform: `translateY(${taglineY}px)`,
+                        textAlign: "center",
+                        width: "100%",
                     }}
                 >
                     a new digital experience
@@ -362,19 +375,19 @@ export const LogoAnimation: React.FC = () => {
                     }}
                 >
                     {isGlitching && (
-                        <h1 style={getGlitchStyle(GLITCH_RED, -12, 4, clipPath1, sansFont)} aria-hidden>
+                        <h1 style={getGlitchStyle(GLITCH_RED, -12, 4, clipPath1, sansFont, mainFontSize)} aria-hidden>
                             JAYGOOD
                         </h1>
                     )}
                     {isGlitching && (
-                        <h1 style={getGlitchStyle(GLITCH_CYAN, 12, -4, clipPath2, sansFont)} aria-hidden>
+                        <h1 style={getGlitchStyle(GLITCH_CYAN, 12, -4, clipPath2, sansFont, mainFontSize)} aria-hidden>
                             JAYGOOD
                         </h1>
                     )}
                     <h1
                         style={{
                             fontFamily: sansFont,
-                            fontSize: 140,
+                            fontSize: mainFontSize,
                             fontWeight: 900,
                             color: isGlitching && random(frame) > 0.65 ? "white" : BRAND_LIME,
                             letterSpacing: "-0.04em",
@@ -393,7 +406,7 @@ export const LogoAnimation: React.FC = () => {
                 <div
                     style={{
                         fontFamily: sansFont,
-                        fontSize: 15,
+                        fontSize: subtitleSize,
                         fontWeight: 400,
                         color: "rgba(255,255,255,0.6)",
                         letterSpacing: "0.5em",
@@ -401,6 +414,7 @@ export const LogoAnimation: React.FC = () => {
                         marginTop: 14,
                         opacity: subtitleOpacity,
                         transform: `translateY(${subtitleY}px)`,
+                        textAlign: "center",
                     }}
                 >
                     Web Design Agency
@@ -432,7 +446,7 @@ export const LogoAnimation: React.FC = () => {
                     <div
                         style={{
                             fontFamily: serifFont,
-                            fontSize: 72,
+                            fontSize: comingSoonSize,
                             fontWeight: 300,
                             fontStyle: "italic",
                             color: "white",
@@ -450,7 +464,7 @@ export const LogoAnimation: React.FC = () => {
                 <div
                     style={{
                         fontFamily: sansFont,
-                        fontSize: 12,
+                        fontSize: dateSize,
                         fontWeight: 400,
                         color: "rgba(255,255,255,0.5)",
                         letterSpacing: "0.6em",

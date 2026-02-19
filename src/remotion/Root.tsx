@@ -6,6 +6,8 @@ import {
   VIDEO_FPS,
   VIDEO_HEIGHT,
   VIDEO_WIDTH,
+  VIDEO_VERTICAL_WIDTH,
+  VIDEO_VERTICAL_HEIGHT,
 } from "../../types/constants";
 import { Main } from "./MyComp/Main";
 import { NextLogo } from "./MyComp/NextLogo";
@@ -20,6 +22,15 @@ export const RemotionRoot: React.FC = () => {
         fps={VIDEO_FPS}
         width={VIDEO_WIDTH}
         height={VIDEO_HEIGHT}
+        defaultProps={defaultMyCompProps}
+      />
+      <Composition
+        id={`${COMP_NAME}Vertical`}
+        component={Main}
+        durationInFrames={DURATION_IN_FRAMES}
+        fps={VIDEO_FPS}
+        width={VIDEO_VERTICAL_WIDTH}
+        height={VIDEO_VERTICAL_HEIGHT}
         defaultProps={defaultMyCompProps}
       />
       <Composition

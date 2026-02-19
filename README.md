@@ -93,5 +93,5 @@ bunx remotion render src/remotion/index.ts MyComp out/video.mp4
 
 
 # Render with 2x scale (4K if source is 1080p), high quality, and slow encoding
-npx remotion render --scale=2 --crf=18 --x264-preset=slower
+bunx remotion render --scale=2 --crf=18 --x264-preset=slower
 
