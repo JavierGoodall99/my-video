@@ -86,3 +86,12 @@ Found an issue with Remotion? [File an issue here](https://remotion.dev/issue).
 ## License
 
 Note that for some entities a company license is needed. [Read the terms here](https://github.com/remotion-dev/remotion/blob/main/LICENSE.md).
+
+
+# RENDER VIDEO
+bunx remotion render src/remotion/index.ts MyComp out/video.mp4
+
+
+# Render with 2x scale (4K if source is 1080p), high quality, and slow encoding
+npx remotion render --scale=2 --crf=18 --x264-preset=slower
+
