@@ -49,6 +49,16 @@
   --spacing-geist-quarter: var(--geist-quarter-pad);
   --radius-geist: var(--geist-border-radius);
   --font-geist: var(--geist-font);
+
+  /* JayGood Agency Branding */
+  --color-brand-lime: #ccff00;
+  --color-brand-dark: #030303;
+  --color-brand-gray: #0f0f0f;
+  --color-brand-silver: #cfcfcf;
+  
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-sans: 'Inter', sans-serif;
+
   --animate-spinner: spinner 1.2s linear infinite;
 
   @keyframes spinner {
