@@ -14,6 +14,7 @@ import { NextLogo } from "./MyComp/NextLogo";
 
 import { ProjectShowcase } from "./ProjectShowcase/Main";
 import { projects } from "./ProjectShowcase/projectsData";
+import { AgencyPromo } from "./AgencyPromo/Main";
 
 export const RemotionRoot: React.FC = () => {
   const FPS = 30;
@@ -30,6 +31,18 @@ export const RemotionRoot: React.FC = () => {
   // Last slide ends at: Start + SLIDE
   const LAST_SLIDE_END = INTRO_DURATION + (projects.length - 1) * (SLIDE_DURATION - TRANSITION_DURATION) + SLIDE_DURATION;
   const SHOWCASE_DURATION = LAST_SLIDE_END + OUTRO_DURATION;
+
+  // Agency Promo Durations
+  const PROMO_INTRO = 40;
+  const PROMO_ABOUT = 240;
+  const PROMO_SERVICES = 360;
+  const PROMO_SLIDE_DURATION = 2 * FPS;
+  const PROMO_TRANSITION = 10;
+
+  const PROMO_WORK_END = (projects.length - 1) * (PROMO_SLIDE_DURATION - PROMO_TRANSITION) + PROMO_SLIDE_DURATION;
+  const PROMO_OUTRO = 150;
+
+  const PROMO_DURATION = PROMO_INTRO + PROMO_ABOUT + PROMO_SERVICES + PROMO_OUTRO;
 
   return (
     <>
@@ -69,6 +82,14 @@ export const RemotionRoot: React.FC = () => {
         defaultProps={{
           outProgress: 0,
         }}
+      />
+      <Composition
+        id="AgencyPromo"
+        component={AgencyPromo}
+        durationInFrames={PROMO_DURATION}
+        fps={FPS}
+        width={1920}
+        height={1080}
       />
     </>
   );
